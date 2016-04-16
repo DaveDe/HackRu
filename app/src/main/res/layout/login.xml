@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/login"
+    <EditText
+        android:id="@+id/username"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="Login">
+        android:hint="username">
+    </EditText>
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/username"
+        android:hint="password">
+    </EditText>
+
+    <Button
+        android:id="@+id/login_button"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Login"
+        android:layout_below="@id/password">
     </Button>
 
-</LinearLayout>
+
+</RelativeLayout>
