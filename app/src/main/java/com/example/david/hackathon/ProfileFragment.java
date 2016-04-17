@@ -22,10 +22,12 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        profileInfo = (TextView) container.findViewById(R.id.profileInfo);
+        View view = inflater.inflate(R.layout.profile_fragment, container, false);
+
+        profileInfo = (TextView) view.findViewById(R.id.profileInfo);
         profileInfo.setText("Info");
 
-        return inflater.inflate(R.layout.profile_fragment, container, false);
+        return view;
     }
 
 }

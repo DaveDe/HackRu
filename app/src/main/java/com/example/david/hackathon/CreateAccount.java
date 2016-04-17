@@ -2,36 +2,26 @@ package com.example.david.hackathon;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Login extends AppCompatActivity {
+public class CreateAccount extends AppCompatActivity {
 
-    public final static String serverURL = "";
-
-    private EditText getUsername;
-    private EditText getPassword;
-    private Button loginButton;
+    private EditText realName;
+    private EditText username;
+    private EditText password;
     private Button createAccount;
 
     private String jResponse;
@@ -39,44 +29,37 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
+        setContentView(R.layout.create_account);
 
-        getUsername = (EditText) findViewById(R.id.username);
-        getPassword = (EditText) findViewById(R.id.password);
-        loginButton = (Button) findViewById(R.id.login_button);
-        createAccount = (Button) findViewById(R.id.create_account);
+        realName = (EditText) findViewById(R.id.realname);
+        username = (EditText) findViewById(R.id.username);
+        password = (EditText) findViewById(R.id.password);
+        createAccount = (Button) findViewById(R.id.create_account_button);
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = getUsername.getText().toString();
-                String password = getPassword.getText().toString();
-                sendAndRecievePostRequest(username,password);
-                Toast.makeText(getBaseContext(),jResponse,Toast.LENGTH_LONG).show();
+                String rname = realName.getText().toString();
+                String uname = username.getText().toString();
+                String pass = password.getText().toString();
+                sendAndRecievePostRequest(rname,uname,pass);
                 //check jresponse before going to MainActivity
                 Intent i = new Intent(getBaseContext(),MainActivity.class);
                 startActivity(i);
             }
         });
 
-        createAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(),CreateAccount.class);
-                startActivity(i);
-            }
-        });
-
     }
 
-    private void sendAndRecievePostRequest(String username, String password){
+    private void sendAndRecievePostRequest(String realName, String username, String password){
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="http://"+serverURL+"/login";
+        String url ="http://"+Login.serverURL+"/login";
         JSONObject jsonBody = new JSONObject();
         try{
             jsonBody.put("Username", username);
             jsonBody.put("password", password);
+            jsonBody.put("realName", realName);
         }catch (JSONException j){}
         final String mRequestBody = jsonBody.toString();
 
@@ -98,6 +81,5 @@ public class Login extends AppCompatActivity {
         queue.add(jsObjRequest);
 
     }
-
 
 }
