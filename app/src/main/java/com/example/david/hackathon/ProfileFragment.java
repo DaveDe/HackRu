@@ -1,7 +1,9 @@
 package com.example.david.hackathon;
 
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +20,7 @@ public class ProfileFragment extends Fragment {
     private RecyclerView rv;
     private List<PostInfo> postList = new ArrayList<PostInfo>();
     private PostAdapter pAdapter;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private TextView profileInfo;
 
@@ -36,6 +39,19 @@ public class ProfileFragment extends Fragment {
 
         profileInfo = (TextView) view.findViewById(R.id.profileInfo);
         profileInfo.setText("Name: \n\npicture");
+
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.activity_main_swipe_refresh_layout);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override public void run() {
+                        mSwipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 5000);
+                populateData();
+            }
+        });
 
         pAdapter = new PostAdapter(postList);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
