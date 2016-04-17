@@ -1,6 +1,7 @@
 package com.example.david.hackathon;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -28,11 +29,14 @@ import org.json.JSONObject;
 public class Login extends AppCompatActivity {
 
     public final static String serverURL = "";
+    public final static String SHAREDPREFS = "SHARED_PREFS";
 
     private EditText getUsername;
     private EditText getPassword;
     private Button loginButton;
     private Button createAccount;
+
+    private SharedPreferences.Editor editor;
 
     private String jResponse;
 
@@ -46,6 +50,8 @@ public class Login extends AppCompatActivity {
         loginButton = (Button) findViewById(R.id.login_button);
         createAccount = (Button) findViewById(R.id.create_account);
 
+        editor = getSharedPreferences(SHAREDPREFS, 0).edit();
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,6 +60,8 @@ public class Login extends AppCompatActivity {
                 sendAndRecievePostRequest(username,password);
                 Toast.makeText(getBaseContext(),jResponse,Toast.LENGTH_LONG).show();
                 //check jresponse before going to MainActivity
+                editor.putString("username",username);
+                editor.commit();
                 Intent i = new Intent(getBaseContext(),MainActivity.class);
                 startActivity(i);
             }

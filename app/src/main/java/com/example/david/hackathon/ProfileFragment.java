@@ -25,7 +25,7 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.profile_fragment, container, false);
 
         profileInfo = (TextView) view.findViewById(R.id.profileInfo);
-        profileInfo.setText("Info");
+        profileInfo.setText("Name: \n\npicture");
 
         return view;
     }

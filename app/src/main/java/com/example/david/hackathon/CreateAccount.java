@@ -1,6 +1,7 @@
 package com.example.david.hackathon;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -24,6 +25,8 @@ public class CreateAccount extends AppCompatActivity {
     private EditText password;
     private Button createAccount;
 
+    private SharedPreferences.Editor editor;
+
     private String jResponse;
 
     @Override
@@ -36,6 +39,8 @@ public class CreateAccount extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password);
         createAccount = (Button) findViewById(R.id.create_account_button);
 
+        editor = getSharedPreferences(Login.SHAREDPREFS, 0).edit();
+
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,6 +49,8 @@ public class CreateAccount extends AppCompatActivity {
                 String pass = password.getText().toString();
                 sendAndRecievePostRequest(rname,uname,pass);
                 //check jresponse before going to MainActivity
+                editor.putString("realName",rname);
+                editor.commit();
                 Intent i = new Intent(getBaseContext(),MainActivity.class);
                 startActivity(i);
             }
