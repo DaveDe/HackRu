@@ -2,6 +2,7 @@ package com.example.david.hackathon;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,10 +16,14 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class CreateAccount extends AppCompatActivity {
 
@@ -51,36 +56,33 @@ public class CreateAccount extends AppCompatActivity {
                 String pass = password.getText().toString();
                 sendAndRecievePostRequest(rname, uname, pass);
                 //check jresponse before going to MainActivity
-                String status = settings.getString("create_account_success","no");
-                Log.v("TEST2",status);
-                editor.putString("realName",rname);
-                editor.commit();
-                Intent i = new Intent(getBaseContext(),MainActivity.class);
-                startActivity(i);
+                String status = settings.getString("create_account_success_1","no");
+                if(status.equals("{\"created\":true}")){
+                    editor.putString("realName",rname);
+                    editor.commit();
+                    Intent i = new Intent(getBaseContext(),MainActivity.class);
+                    startActivity(i);
+                }else{
+                    Toast.makeText(getBaseContext(),"Please enter new credentials",Toast.LENGTH_LONG).show();
+                }
             }
         });
 
     }
 
-    private void sendAndRecievePostRequest(String realName, String username, String password){
+    private void sendAndRecievePostRequest(final String realName, final String username, final String password){
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="http://"+Login.serverURL+"/login";
-        JSONObject jsonBody = new JSONObject();
-        try{
-            jsonBody.put("Username", username);
-            jsonBody.put("password", password);
-            jsonBody.put("realName", realName);
-        }catch (JSONException j){}
-        final String mRequestBody = jsonBody.toString();
+        String url ="http://"+Login.serverURL+"/user/create";
 
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.POST, url, mRequestBody,new Response.Listener<JSONObject>() {
+        StringRequest sRequest = new StringRequest
+                (Request.Method.POST, url,new Response.Listener<String>() {
 
                     @Override
-                    public void onResponse(JSONObject response) {
-                        String account = response.optString("login");
-                        editor.putString("create_account_success",account);
+                    public void onResponse(String response) {
+                        String account = response;
+                        Toast.makeText(getBaseContext(),response.toString(),Toast.LENGTH_LONG).show();
+                        editor.putString("create_account_success_1",account);
                         editor.commit();
                     }
                 }, new Response.ErrorListener() {
@@ -88,13 +90,24 @@ public class CreateAccount extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         String account = error.toString();
-                        editor.putString("create_account_success",account);
+                        editor.putString("create_account_success_1",account);
                         editor.commit();
                     }
-                });
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("username", username);
+                params.put("password", password);
+                params.put("profile_picture", "a");
+                params.put("name", realName);
 
-        queue.add(jsObjRequest);
+                return params;
+            }
 
+
+        };
+            queue.add(sRequest);
     }
 
 }
