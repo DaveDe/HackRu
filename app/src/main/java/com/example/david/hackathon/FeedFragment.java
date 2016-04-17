@@ -70,13 +70,15 @@ public class FeedFragment extends Fragment {
 
     private void populateData() {
         String userID = settings.getString("name","not_found");
-        PostInfo pi = new PostInfo("title", userID, "Go home rn");
+        String title = settings.getString("title","not_found");
+        String description = settings.getString("description","not_found");
+        PostInfo pi = new PostInfo(title, userID, description);
         postList.add(pi);
 
-        pi = new PostInfo("title", userID, "Go home NEBER");
+        pi = new PostInfo(title, userID, description);
         postList.add(pi);
 
-        pi = new PostInfo("title", userID, "GO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORT");
+        pi = new PostInfo(title, userID, description);
         postList.add(pi);
 
         pAdapter.notifyDataSetChanged();

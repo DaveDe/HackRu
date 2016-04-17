@@ -71,13 +71,15 @@ public class ProfileFragment extends Fragment {
 
     private void populateData() {
         String name = settings.getString("name","not_found");
-        PostInfo pi = new PostInfo("title", name, "Go home rn");
+        String title = settings.getString("title","not_found");
+        String description = settings.getString("description","not_found");
+        PostInfo pi = new PostInfo(title, name, description);
         postList.add(pi);
 
-        pi = new PostInfo("title", name, "Go home NEBER");
+        pi = new PostInfo(title, name, description);
         postList.add(pi);
 
-        pi = new PostInfo("title", name, "GO HORT");
+        pi = new PostInfo(title, name, description);
         postList.add(pi);
 
         pAdapter.notifyDataSetChanged();
