@@ -10,7 +10,7 @@ public class PostInfo {
     private String content;
     private int pushCount;
 
-    public PostInfo(String userID, String title, String content) {
+    public PostInfo(String title, String userID, String content) {
         this.userID = userID;
         this.title = title;
         this.content = content;

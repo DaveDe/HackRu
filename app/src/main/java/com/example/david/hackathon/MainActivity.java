@@ -2,6 +2,7 @@ package com.example.david.hackathon;
 
 
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.WindowManager;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -48,10 +50,12 @@ public class MainActivity extends AppCompatActivity {
         recieveGetRequest();
 
         String username = settings.getString("username","nothing");
-        String name = settings.getString("name","name not found");
-        String following = settings.getString("following","none");
-        String follower = settings.getString("follower","none");
-        Log.v("TEST",username + " " + name + " " + following + " " + follower);
+
+        if (Build.VERSION.SDK_INT < 16) {
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+
     }
 
     private void setupViewPager(ViewPager viewPager) {
