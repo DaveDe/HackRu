@@ -1,5 +1,6 @@
 package com.example.david.hackathon;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -22,6 +23,8 @@ public class FeedFragment extends Fragment {
     private PostAdapter pAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
+    private SharedPreferences settings;
+
 
     public FeedFragment() {
         // Required empty public constructor
@@ -38,6 +41,7 @@ public class FeedFragment extends Fragment {
         View view = inflater.inflate(R.layout.feed, container, false);
         super.onCreate(savedInstanceState);
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        settings = getActivity().getSharedPreferences(Login.SHAREDPREFS, 0);
         //setSupportActionBar(toolbar);
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.activity_main_swipe_refresh_layout);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -65,13 +69,14 @@ public class FeedFragment extends Fragment {
     }
 
     private void populateData() {
-        PostInfo pi = new PostInfo("Goal1", "jimmy4", "Go home rn");
+        String userID = settings.getString(settings.getString("username",""),"not_found");
+        PostInfo pi = new PostInfo("title", userID, "Go home rn");
         postList.add(pi);
 
-        pi = new PostInfo("Goal3", "jimmy17", "Go home NEBER");
+        pi = new PostInfo("title", userID, "Go home NEBER");
         postList.add(pi);
 
-        pi = new PostInfo("Habit22", "lennygoesHORT", "GO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORT");
+        pi = new PostInfo("title", userID, "GO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORTGO HORT");
         postList.add(pi);
 
         pAdapter.notifyDataSetChanged();

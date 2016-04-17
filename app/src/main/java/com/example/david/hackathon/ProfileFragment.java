@@ -1,5 +1,6 @@
 package com.example.david.hackathon;
 
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -22,6 +23,8 @@ public class ProfileFragment extends Fragment {
     private PostAdapter pAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
+    private SharedPreferences settings;
+
     private TextView profileInfo;
 
     public ProfileFragment() {}
@@ -36,6 +39,8 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.profile_fragment, container, false);
+
+        settings = getActivity().getSharedPreferences(Login.SHAREDPREFS, 0);
 
         profileInfo = (TextView) view.findViewById(R.id.profileInfo);
         profileInfo.setText("Name: \n\npicture");
@@ -65,13 +70,14 @@ public class ProfileFragment extends Fragment {
     }
 
     private void populateData() {
-        PostInfo pi = new PostInfo("Entry1", "jimmy4", "Go home rn");
+        String name = settings.getString(settings.getString("username",""),"not_found");
+        PostInfo pi = new PostInfo("title", name, "Go home rn");
         postList.add(pi);
 
-        pi = new PostInfo("Entry2", "jimmy17", "Go home NEBER");
+        pi = new PostInfo("title", name, "Go home NEBER");
         postList.add(pi);
 
-        pi = new PostInfo("Entry3", "lennygoesHORT", "GO HORT");
+        pi = new PostInfo("title", name, "GO HORT");
         postList.add(pi);
 
         pAdapter.notifyDataSetChanged();
