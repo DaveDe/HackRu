@@ -14,13 +14,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
     private List<PostInfo> postList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, userID, pushCount;
+        public TextView title, userID, pushCount, content;
 
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
             userID = (TextView) view.findViewById(R.id.userID);
             pushCount = (TextView) view.findViewById(R.id.pushCount);
+            content = (TextView) view.findViewById(R.id.content);
         }
     }
 
@@ -41,6 +42,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
         holder.title.setText(post.getTitle());
         holder.userID.setText(post.getUserID());
         holder.pushCount.setText(""+post.getPushCount());
+        holder.content.setText(post.getContent());
     }
 
     @Override
