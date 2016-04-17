@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,8 +28,7 @@ public class CreateAccount extends AppCompatActivity {
     private Button createAccount;
 
     private SharedPreferences.Editor editor;
-
-    private String jResponse;
+    private SharedPreferences settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,8 @@ public class CreateAccount extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password);
         createAccount = (Button) findViewById(R.id.create_account_button);
 
-        editor = getSharedPreferences(Login.SHAREDPREFS, 0).edit();
+        settings = getSharedPreferences(Login.SHAREDPREFS, 0);
+        editor = settings.edit();
 
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +51,8 @@ public class CreateAccount extends AppCompatActivity {
                 String pass = password.getText().toString();
                 sendAndRecievePostRequest(rname, uname, pass);
                 //check jresponse before going to MainActivity
+                String status = settings.getString("create_account_success","no");
+                Log.v("TEST2",status);
                 editor.putString("realName",rname);
                 editor.commit();
                 Intent i = new Intent(getBaseContext(),MainActivity.class);
@@ -76,15 +79,17 @@ public class CreateAccount extends AppCompatActivity {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        Toast.makeText(getBaseContext(), "RESPONSE: " + response.toString(), Toast.LENGTH_LONG).show();
-                        jResponse = "RESPONSE: " + response.toString();
+                        String account = response.optString("login");
+                        editor.putString("create_account_success",account);
+                        editor.commit();
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getBaseContext(), "RESPONSE: " + error.toString(), Toast.LENGTH_LONG).show();
-                        jResponse = "ERROR: " + error.toString();
+                        String account = error.toString();
+                        editor.putString("create_account_success",account);
+                        editor.commit();
                     }
                 });
 

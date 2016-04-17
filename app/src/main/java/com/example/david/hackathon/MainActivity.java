@@ -26,15 +26,11 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    //private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
     private SharedPreferences settings;
-
-    private String jResponse;
-
-    private HashMap userData;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +38,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_activity);
 
         settings = getSharedPreferences(Login.SHAREDPREFS, 0);
-        jResponse = "";
+        editor = settings.edit();
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-        userData = new HashMap();
         recieveGetRequest();
-        Log.d("TEST", jResponse);
-        //parse json into hashmap
+
+        String success = settings.getString("login_success","nothing stored");
+        String username = settings.getString("username","nothing");
+        Log.v("TEST",success+ " " + username);
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -94,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
 
         RequestQueue queue = Volley.newRequestQueue(this);
         String username = settings.getString("username", "not found");
-        Log.d("TEST",username);
         String getRequest = "/user?u="+username;
         String url ="http://"+Login.serverURL+getRequest;
 
@@ -103,13 +99,17 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        jResponse = "RESPONSE: " + response.toString();
+                        String info = response.optString("temp");
+                        editor.putString("info",info);
+                        editor.commit();
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        jResponse = "ERROR: " + error.toString();
+                        String info = error.toString();
+                        editor.putString("info",info);
+                        editor.commit();
                     }
                 });
 
