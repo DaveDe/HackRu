@@ -58,7 +58,7 @@ public class CreateAccount extends AppCompatActivity {
                 //check jresponse before going to MainActivity
                 String status = settings.getString("create_account_success_1","no");
                 if(status.equals("{\"created\":true}")){
-                    editor.putString("realName",rname);
+                    editor.putString(uname,rname);
                     editor.commit();
                     Intent i = new Intent(getBaseContext(),MainActivity.class);
                     startActivity(i);
@@ -81,7 +81,6 @@ public class CreateAccount extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         String account = response;
-                        Toast.makeText(getBaseContext(),response.toString(),Toast.LENGTH_LONG).show();
                         editor.putString("create_account_success_1",account);
                         editor.commit();
                     }
