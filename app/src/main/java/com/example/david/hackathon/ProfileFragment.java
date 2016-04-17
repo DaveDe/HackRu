@@ -24,6 +24,7 @@ public class ProfileFragment extends Fragment {
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private SharedPreferences settings;
+    private SharedPreferences.Editor editor;
 
     private TextView profileInfo;
 
@@ -41,6 +42,7 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.profile_fragment, container, false);
 
         settings = getActivity().getSharedPreferences(Login.SHAREDPREFS, 0);
+        editor = settings.edit();
 
         profileInfo = (TextView) view.findViewById(R.id.profileInfo);
         profileInfo.setText("Name: \n\npicture");
@@ -53,7 +55,7 @@ public class ProfileFragment extends Fragment {
                     @Override public void run() {
                         mSwipeRefreshLayout.setRefreshing(false);
                     }
-                }, 5000);
+                }, 2000);
                 populateData();
             }
         });
@@ -70,19 +72,25 @@ public class ProfileFragment extends Fragment {
     }
 
     private void populateData() {
-        String name = settings.getString("name","not_found");
-        String title = settings.getString("title","not_found");
-        String description = settings.getString("description","not_found");
-        PostInfo pi = new PostInfo(title, name, description);
-        postList.add(pi);
+        boolean addGoal = settings.getBoolean("goalAdded", false);
+        if(addGoal){
+            int numGoals = settings.getInt("numGoals",0);
+            String[] title = new String[numGoals];
+            String[] description = new String[numGoals];
+            for(int i = 0; i < numGoals; i++){
+                title[i] = settings.getString("title_"+i,"not_found");
+                description[i] = settings.getString("description_"+i,"not_found");
+            }
+            String name = settings.getString("name","not_found");
+            for(int i = 0; i < numGoals; i++){
+                PostInfo pi = new PostInfo(title[i], name, description[i]);
+                postList.add(pi);
+            }
 
-        pi = new PostInfo(title, name, description);
-        postList.add(pi);
-
-        pi = new PostInfo(title, name, description);
-        postList.add(pi);
-
-        pAdapter.notifyDataSetChanged();
+            pAdapter.notifyDataSetChanged();
+        }
+        editor.putBoolean("goalAdded",false);
+        editor.commit();
     }
 
 }

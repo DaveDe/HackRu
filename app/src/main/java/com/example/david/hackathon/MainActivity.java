@@ -76,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new ProfileFragment(), "PROFILE");
         adapter.addFragment(new FeedFragment(), "FEED");
-        adapter.addFragment(new ExploreFragment(), "EXPLORE");
         viewPager.setAdapter(adapter);
     }
 
