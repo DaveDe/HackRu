@@ -72,14 +72,6 @@ public class FeedFragment extends Fragment {
         String userID = settings.getString("name","not_found");
         String title = settings.getString("title","not_found");
         String description = settings.getString("description","not_found");
-        PostInfo pi = new PostInfo(title, userID, description);
-        postList.add(pi);
-
-        pi = new PostInfo(title, userID, description);
-        postList.add(pi);
-
-        pi = new PostInfo(title, userID, description);
-        postList.add(pi);
 
         pAdapter.notifyDataSetChanged();
     }
