@@ -12,7 +12,14 @@
         android:paddingLeft="24dp"
         android:paddingRight="24dp">
 
+<<<<<<< HEAD
         <ImageView android:src="@mipmap/pfft"
+=======
+
+
+
+        <ImageView android:src="@mipmap/ic_launcher"
+>>>>>>> 5327d16053a71d21a4cb473ffca0679727c34dc2
             android:layout_width="wrap_content"
             android:layout_height="72dp"
             android:layout_marginBottom="24dp"
