@@ -26,7 +26,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    //private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
