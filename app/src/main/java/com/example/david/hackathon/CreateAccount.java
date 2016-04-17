@@ -2,13 +2,13 @@ package com.example.david.hackathon;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -25,74 +25,64 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+public class CreateAccount extends AppCompatActivity {
 
-public class Login extends AppCompatActivity {
+    private EditText realName;
+    private EditText username;
+    private EditText password;
+    private Button createAccount;
 
-    public final static String serverURL = "classvm123.cs.rutgers.edu:8080/hustlist";
-    public final static String SHAREDPREFS = "SHARED_PREFS";
-
-    private EditText getUsername;
-    private EditText getPassword;
-    private Button loginButton;
-    private TextView createAccount;
-
-    private SharedPreferences settings;
     private SharedPreferences.Editor editor;
+    private SharedPreferences settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
+        setContentView(R.layout.create_account);
 
-        getUsername = (EditText) findViewById(R.id.username);
-        getPassword = (EditText) findViewById(R.id.password);
-        loginButton = (Button) findViewById(R.id.login_button);
-        createAccount = (TextView) findViewById(R.id.create_account_button);
+        realName = (EditText) findViewById(R.id.realname);
+        username = (EditText) findViewById(R.id.username);
+        password = (EditText) findViewById(R.id.password);
+        createAccount = (Button) findViewById(R.id.create_account_button);
 
-        settings = getSharedPreferences(SHAREDPREFS, 0);
+        settings = getSharedPreferences(Login.SHAREDPREFS, 0);
         editor = settings.edit();
-
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String username = getUsername.getText().toString();
-                String password = getPassword.getText().toString();
-                sendAndRecievePostRequest(username, password);
-                //check jresponse before going to MainActivity
-                String success = settings.getString("login_success","no");
-                if(success.equals("{\"login\":true}")){
-                    editor.putString("username",username);
-                    editor.commit();
-                    Intent i = new Intent(getBaseContext(),MainActivity.class);
-                    startActivity(i);
-                }else{
-                    Toast.makeText(getBaseContext(),"Please enter valid account details",Toast.LENGTH_LONG).show();
-                }
-
-            }
-        });
 
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(),CreateAccount.class);
-                startActivity(i);
+                String rname = realName.getText().toString();
+                String uname = username.getText().toString();
+                String pass = password.getText().toString();
+                sendAndRecievePostRequest(rname, uname, pass);
+                //check jresponse before going to MainActivity
+                String status = settings.getString("create_account_success_1","no");
+                if(status.equals("{\"created\":true}")){
+                    editor.putString("name",rname);
+                    editor.putString("username",uname);
+                    editor.commit();
+                    Intent i = new Intent(getBaseContext(),MainActivity.class);
+                    startActivity(i);
+                }else{
+                    Toast.makeText(getBaseContext(),"Please enter new credentials",Toast.LENGTH_LONG).show();
+                }
             }
         });
 
     }
 
-    private void sendAndRecievePostRequest(final String username, final String password){
+    private void sendAndRecievePostRequest(final String realName, final String username, final String password){
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="http://"+serverURL+ "/login";
+        String url ="http://"+Login.serverURL+"/user/create";
 
         StringRequest sRequest = new StringRequest
                 (Request.Method.POST, url,new Response.Listener<String>() {
 
                     @Override
                     public void onResponse(String response) {
-                        editor.putString("login_success",response);
+                        String account = response;
+                        editor.putString("create_account_success_1",account);
                         editor.commit();
                     }
                 }, new Response.ErrorListener() {
@@ -100,7 +90,7 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         String account = error.toString();
-                        editor.putString("login_success",account);
+                        editor.putString("create_account_success_1",account);
                         editor.commit();
                     }
                 }) {
@@ -109,18 +99,15 @@ public class Login extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("username", username);
                 params.put("password", password);
+                params.put("profile_picture", "a");
+                params.put("name", realName);
 
                 return params;
             }
 
 
         };
-        queue.add(sRequest);
-
+            queue.add(sRequest);
     }
 
-
 }
-
-
-
