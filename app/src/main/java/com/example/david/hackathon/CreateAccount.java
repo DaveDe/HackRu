@@ -58,7 +58,8 @@ public class CreateAccount extends AppCompatActivity {
                 //check jresponse before going to MainActivity
                 String status = settings.getString("create_account_success_1","no");
                 if(status.equals("{\"created\":true}")){
-                    editor.putString(uname,rname);
+                    editor.putString("name",rname);
+                    editor.putString("username",uname);
                     editor.commit();
                     Intent i = new Intent(getBaseContext(),MainActivity.class);
                     startActivity(i);

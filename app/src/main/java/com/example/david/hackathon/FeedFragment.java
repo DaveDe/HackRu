@@ -69,7 +69,7 @@ public class FeedFragment extends Fragment {
     }
 
     private void populateData() {
-        String userID = settings.getString(settings.getString("username",""),"not_found");
+        String userID = settings.getString("name","not_found");
         PostInfo pi = new PostInfo("title", userID, "Go home rn");
         postList.add(pi);
 

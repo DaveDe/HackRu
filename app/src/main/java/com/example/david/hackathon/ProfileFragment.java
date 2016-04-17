@@ -70,7 +70,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void populateData() {
-        String name = settings.getString(settings.getString("username",""),"not_found");
+        String name = settings.getString("name","not_found");
         PostInfo pi = new PostInfo("title", name, "Go home rn");
         postList.add(pi);
 
