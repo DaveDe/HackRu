@@ -40,7 +40,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
         PostInfo post = postList.get(position);
         holder.title.setText(post.getTitle());
         holder.userID.setText(post.getUserID());
-        holder.pushCount.setText(post.getPushCount());
+        holder.pushCount.setText(""+post.getPushCount());
     }
 
     @Override

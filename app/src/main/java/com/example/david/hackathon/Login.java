@@ -2,6 +2,7 @@ package com.example.david.hackathon;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -24,12 +25,18 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class Login extends AppCompatActivity {
 
-    public final static String serverURL = "165.230.225.165:8080/server";
+    public final static String serverURL = "classvm123.cs.rutgers.edu:8080/server";
     public final static String SHAREDPREFS = "SHARED_PREFS";
 
     private EditText getUsername;
@@ -83,7 +90,7 @@ public class Login extends AppCompatActivity {
     private void sendAndRecievePostRequest(String username, String password){
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="http://"+serverURL+"/login";
+        String url ="http://classvm123.cs.rutgers.edu:8080/server/login";
         JSONObject jsonBody = new JSONObject();
         try{
             jsonBody.put("Username", username);
@@ -109,8 +116,45 @@ public class Login extends AppCompatActivity {
                 });
 
         queue.add(jsObjRequest);
-        //queue.start();
     }
 
+    /*private class UpdateListTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... urls) {
+            String response = "";
+           // for (String url : urls) {
+                HttpURLConnection urlConnection = null;
+                try {
+                    URL _url = new URL(url);
+                    urlConnection = (HttpURLConnection) _url.openConnection();
+                    InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                    response = readStream(in);
+                    Log.i("work", "got response");
+                    JSONObject json = new JSONObject(response);
+                    JSONArray jsonArray = json.getJSONArray("pokemon");
+                   /* list.clear();
+                    for(int i = 0; i < jsonArray.length(); i++){
+                        JSONObject obj = jsonArray.getJSONObject(i);
+                        list.add(obj.getString("name"));
+                    }
+                }
+                catch(Exception e){
 
+                }
+                finally {
+                    urlConnection.disconnect();
+                }
+            //}
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if(!result.equals("")){
+                listAdapter.notifyDataSetChanged();
+            }
+        }*/
 }
+
+
+
