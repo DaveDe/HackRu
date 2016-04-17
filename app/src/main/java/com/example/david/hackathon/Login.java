@@ -4,11 +4,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -29,7 +28,7 @@ public class Login extends AppCompatActivity {
     private EditText getUsername;
     private EditText getPassword;
     private Button loginButton;
-    private Button createAccount;
+    private TextView createAccount;
 
     private SharedPreferences.Editor editor;
 
@@ -41,7 +40,7 @@ public class Login extends AppCompatActivity {
         getUsername = (EditText) findViewById(R.id.username);
         getPassword = (EditText) findViewById(R.id.password);
         loginButton = (Button) findViewById(R.id.login_button);
-        createAccount = (Button) findViewById(R.id.create_account);
+        createAccount = (TextView) findViewById(R.id.create_account_button);
 
         editor = getSharedPreferences(SHAREDPREFS, 0).edit();
 
