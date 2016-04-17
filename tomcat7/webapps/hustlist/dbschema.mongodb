@@ -1,0 +1,61 @@
+
+DB Name: socio
+
+User collection
+users
+{
+    _id: Object('AAA'),
+    username: 'tcn33',
+    password: ' .... ',
+    name: ' ...', 
+    goals:[
+        title: '...',
+	    description: '...',
+	    subGoals:[
+	        ObjectId(' '),
+	        ObjectId(' ')
+	    ],
+	    startTime: Date(' '),
+	    endTime: Date(' '),
+	    done: true|false,
+	    access: private|public
+	    comments:[
+	        {
+	            user-name: ,
+	            comment: 'yo sup'
+	        }
+	    ],
+	    likes:[
+	        username: asdasd,
+	        username: asdasd
+	    ]
+    ],
+    habits:[
+        title:' ... ',
+	    repeat: // ( could be either 'EVERYDAY' | 'EVERYWEEK' | 'EVERYMONTH' )
+	    startTimeInDay: Date(' '),
+	    endTimeInDay: Date(' '),
+	    comments: [
+	        {
+	            user: ObjectId('AAA'),
+	            comment: 'blah'
+	        } 
+	    ]
+    ],
+    profilePic: 01010101010101001010101,
+    followingNo: 10,
+    followers:[
+        ObjectId(' ... '),
+        ObjectId(' ... ')
+    ]
+}
+
+// Create db
+db socio
+
+//use socio
+use socio
+db.createCollection('users')
+db.createCollection('goals')
+db.createCollection('habits')
+
