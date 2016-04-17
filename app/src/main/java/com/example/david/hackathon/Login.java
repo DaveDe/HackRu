@@ -86,7 +86,6 @@ public class Login extends AppCompatActivity {
 
         RequestQueue queue = Volley.newRequestQueue(this);
         String url ="http://"+serverURL+ "/login";
-        String ret = "";
 
         StringRequest sRequest = new StringRequest
                 (Request.Method.POST, url,new Response.Listener<String>() {

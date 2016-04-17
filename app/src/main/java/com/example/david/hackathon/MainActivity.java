@@ -16,6 +16,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
@@ -23,6 +24,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,9 +47,11 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         recieveGetRequest();
 
-        String success = settings.getString("login_success","nothing stored");
         String username = settings.getString("username","nothing");
-        Log.v("TEST",success+ " " + username);
+        String name = settings.getString("name","name not found");
+        String following = settings.getString("following","none");
+        String follower = settings.getString("follower","none");
+        Log.v("TEST",username + " " + name + " " + following + " " + follower);
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -99,8 +103,12 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        String info = response.optString("temp");
-                        editor.putString("info",info);
+                        String name = response.optString("name");
+                        String following = response.optString("following-number");
+                        String follower = response.optString("follower-number");
+                        editor.putString("name",name);
+                        editor.putString("following",following);
+                        editor.putString("follower",follower);
                         editor.commit();
                     }
                 }, new Response.ErrorListener() {
