@@ -37,12 +37,13 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/userID"
                 android:id="@+id/content"
-                android:textColor="#FFF"/>
+                android:textColor="#000"/>
 
             <TextView
                 android:id="@+id/pushCount"
                 android:layout_width="wrap_content"
                 android:layout_toRightOf="@id/title"
+                android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_height="wrap_content"
                 android:textColor="#FFFFFF"/>
