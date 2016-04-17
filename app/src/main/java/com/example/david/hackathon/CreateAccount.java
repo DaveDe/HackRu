@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -47,7 +48,7 @@ public class CreateAccount extends AppCompatActivity {
                 String rname = realName.getText().toString();
                 String uname = username.getText().toString();
                 String pass = password.getText().toString();
-                sendAndRecievePostRequest(rname,uname,pass);
+                sendAndRecievePostRequest(rname, uname, pass);
                 //check jresponse before going to MainActivity
                 editor.putString("realName",rname);
                 editor.commit();
@@ -75,12 +76,14 @@ public class CreateAccount extends AppCompatActivity {
 
                     @Override
                     public void onResponse(JSONObject response) {
+                        Toast.makeText(getBaseContext(), "RESPONSE: " + response.toString(), Toast.LENGTH_LONG).show();
                         jResponse = "RESPONSE: " + response.toString();
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getBaseContext(), "RESPONSE: " + error.toString(), Toast.LENGTH_LONG).show();
                         jResponse = "ERROR: " + error.toString();
                     }
                 });

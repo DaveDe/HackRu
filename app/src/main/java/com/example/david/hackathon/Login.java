@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,7 +29,7 @@ import org.json.JSONObject;
 
 public class Login extends AppCompatActivity {
 
-    public final static String serverURL = "";
+    public final static String serverURL = "165.230.225.165:8080/server";
     public final static String SHAREDPREFS = "SHARED_PREFS";
 
     private EditText getUsername;
@@ -52,13 +53,15 @@ public class Login extends AppCompatActivity {
 
         editor = getSharedPreferences(SHAREDPREFS, 0).edit();
 
+        jResponse = "";
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String username = getUsername.getText().toString();
                 String password = getPassword.getText().toString();
-                sendAndRecievePostRequest(username,password);
-                Toast.makeText(getBaseContext(),jResponse,Toast.LENGTH_LONG).show();
+                sendAndRecievePostRequest(username, password);
+               // Toast.makeText(getBaseContext(),jResponse,Toast.LENGTH_LONG).show();
                 //check jresponse before going to MainActivity
                 editor.putString("username",username);
                 editor.commit();
@@ -93,18 +96,20 @@ public class Login extends AppCompatActivity {
 
                     @Override
                     public void onResponse(JSONObject response) {
+                        Toast.makeText(getBaseContext(),"RESPONSE: " + response.toString(),Toast.LENGTH_LONG).show();
                         jResponse = "RESPONSE: " + response.toString();
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getBaseContext(),"RESPONSE: " + error.toString(),Toast.LENGTH_LONG).show();
                         jResponse = "ERROR: " + error.toString();
                     }
                 });
 
         queue.add(jsObjRequest);
-
+        //queue.start();
     }
 
 
