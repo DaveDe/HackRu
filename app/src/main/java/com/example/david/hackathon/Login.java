@@ -60,14 +60,18 @@ public class Login extends AppCompatActivity {
                 sendAndRecievePostRequest(username, password);
                 //check jresponse before going to MainActivity
                 String success = settings.getString("login_success","no");
-                if(success.equals("{\"login\":true}")){
-                    editor.putString("username",username);
-                    editor.commit();
-                    Intent i = new Intent(getBaseContext(),MainActivity.class);
-                    startActivity(i);
-                }else{
-                    Toast.makeText(getBaseContext(),"Please enter valid account details",Toast.LENGTH_LONG).show();
-                }
+                // for testing purposes
+                Intent i = new Intent(getBaseContext(),MainActivity.class);
+                startActivity(i);
+
+//                if(success.equals("{\"login\":true}")){
+//                    editor.putString("username",username);
+//                    editor.commit();
+//                    Intent i = new Intent(getBaseContext(),MainActivity.class);
+//                    startActivity(i);
+//                }else{
+//                    Toast.makeText(getBaseContext(),"Please enter valid account details",Toast.LENGTH_LONG).show();
+//                }
 
             }
         });

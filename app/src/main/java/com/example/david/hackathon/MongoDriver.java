@@ -21,7 +21,6 @@ public class MongoDriver {
     MongoClient mongoClient = new MongoClient();
     MongoDatabase db = mongoClient.getDatabase("test");
 
-   // db.insertCollection("new");
 
 
 

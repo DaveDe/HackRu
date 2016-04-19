@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:xlmns="http://schemas.android.com/tools"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -12,53 +12,73 @@
     card_view:cardCornerRadius="3dp"
     android:background="#E5E4E2">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-
-
-        <TextView
-            android:id="@+id/title"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            android:paddingTop="5dp"
-            android:paddingLeft="5dp"
-            android:layout_alignParentTop="true"
-            android:layout_width="match_parent"
+        <RelativeLayout
+            xlmns:android="http://schemas.android.com/apk/res/android"
             android:layout_height="30dp"
-            android:layout_marginTop="0dp"
-            android:background="@color/colorPrimary"
-            android:textColor="#FFF"/>
-
-        <TextView
-            android:id="@+id/userID"
-            android:layout_below="@id/title"
+            android:id="@+id/topCard"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#9F9E9C"
-            android:paddingTop="10dp"
-            android:paddingLeft="10dp"/>
+            android:orientation="horizontal"
+            android:background="@color/colorPrimary">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/userID"
-            android:id="@+id/content"
-            android:padding="15dp"
-            android:textColor="#000000"/>
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="0dp"
+                android:id="@+id/userIcon"
+                android:src="@drawable/panda"/>
+
+            <TextView
+                android:id="@+id/title"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:paddingTop="5dp"
+                android:paddingLeft="5dp"
+                android:layout_toRightOf="@id/userIcon"
+                android:layout_alignParentTop="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="0dp"
+                android:textColor="#FFF"/>
+
+            <TextView
+                android:id="@+id/pushCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingRight="20dp"
+                android:layout_alignParentRight="true"
+                android:textColor="#ffffff"/>
+        </RelativeLayout>
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/infoCard"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/userID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#9F9E9C"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/userID"
+                android:id="@+id/content"
+                android:padding="15dp"
+                android:textColor="#000000"/>
 
 
-        <TextView
-            android:id="@+id/pushCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="5dp"
-            android:paddingRight="20dp"
-            android:layout_alignParentRight="true"
-            android:textColor="#ffffff"/>
 
-
-
-    </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
 </android.support.v7.widget.CardView>
