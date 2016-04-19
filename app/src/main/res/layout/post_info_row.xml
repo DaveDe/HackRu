@@ -6,8 +6,8 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="30dp"
-    android:layout_marginRight="30dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
     android:layout_marginTop="20dp"
     card_view:cardCornerRadius="3dp"
     android:background="#E5E4E2">
@@ -19,40 +19,56 @@
 
         <RelativeLayout
             xlmns:android="http://schemas.android.com/apk/res/android"
-            android:layout_height="30dp"
+            android:layout_height="48dp"
             android:id="@+id/topCard"
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:background="@color/colorPrimary">
 
             <android.support.v7.widget.AppCompatImageView
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="0dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
                 android:id="@+id/userIcon"
                 android:src="@drawable/panda"/>
 
             <TextView
                 android:id="@+id/title"
-                android:textSize="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="72dp"
+                android:layout_gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:textSize="12dp"
                 android:textStyle="bold"
-                android:paddingTop="5dp"
-                android:paddingLeft="5dp"
-                android:layout_toRightOf="@id/userIcon"
-                android:layout_alignParentTop="true"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="0dp"
-                android:textColor="#FFF"/>
+                android:textColor="#FFF"
+                android:text="DUMMY"/>
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:id="@+id/likeButton"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:layout_marginRight="32dp"
+                android:layout_alignParentRight="true"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_favorite_border_white_24dp"/>
 
             <TextView
                 android:id="@+id/pushCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="5dp"
-                android:paddingRight="20dp"
+                android:paddingRight="16dp"
+                android:paddingLeft="16dp"
+                android:layout_gravity="center_vertical"
+                android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:textColor="#ffffff"/>
+                android:textColor="#ffffff"
+                android:text="127"/>
         </RelativeLayout>
 
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -67,7 +83,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="#9F9E9C"
                 android:paddingTop="10dp"
-                android:paddingLeft="10dp"/>
+                android:paddingLeft="10dp"
+                android:text="UserName123"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -75,7 +92,8 @@
                 android:layout_below="@id/userID"
                 android:id="@+id/content"
                 android:padding="15dp"
-                android:textColor="#000000"/>
+                android:textColor="#000000"
+                android:text="HELLLLLOOOOOOOOO"/>
 
 
 
