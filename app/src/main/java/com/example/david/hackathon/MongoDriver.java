@@ -1,6 +1,9 @@
 package com.example.david.hackathon;
 
+import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import java.text.DateFormat;
@@ -18,6 +21,9 @@ public class MongoDriver {
     MongoClient mongoClient = new MongoClient();
     MongoDatabase db = mongoClient.getDatabase("test");
 
-    
+   // db.insertCollection("new");
+
+
+
 
 }
